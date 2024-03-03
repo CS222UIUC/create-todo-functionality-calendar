@@ -1,120 +1,75 @@
-<!-- Todos.svelte -->
-<div class="todoapp stack-large">
+<script>
+	import { ButtonGroup, Button } from 'flowbite-svelte';
 
-  <!-- NewTodo -->
-  <form>
-    <h2 class="label-wrapper">
-      <label for="todo-0" class="label__lg">
-        What needs to be done?
-      </label>
-    </h2>
-    <input type="text" id="todo-0" autocomplete="off"
-      class="input input__lg" />
-    <button type="submit" disabled="" class="btn btn__primary btn__lg">
-      Add
-    </button>
-  </form>
+	let todos = []	
+	let task = ""
+	let startTime = ""
+	let endTime = ""
 
-  <!-- Filter -->
-  <div class="filters btn-group stack-exception">
-    <button class="btn toggle-btn" aria-pressed="true">
-      <span class="visually-hidden">Show</span>
-      <span>All</span>
-      <span class="visually-hidden">tasks</span>
-    </button>
-    <button class="btn toggle-btn" aria-pressed="false">
-      <span class="visually-hidden">Show</span>
-      <span>Active</span>
-      <span class="visually-hidden">tasks</span>
-    </button>
-    <button class="btn toggle-btn" aria-pressed="false">
-      <span class="visually-hidden">Show</span>
-      <span>Completed</span>
-      <span class="visually-hidden">tasks</span>
-    </button>
-  </div>
+    const addNewTodo = async () => {
+    }
 
-  <!-- TodosStatus -->
-  <h2 id="list-heading">2 out of 3 items completed</h2>
-
-  <!-- Todos -->
-  <ul role="list" class="todo-list stack-large" aria-labelledby="list-heading">
-
-    <!-- todo-1 (editing mode) -->
-    <li class="todo">
-      <div class="stack-small">
-        <form class="stack-small">
-          <div class="form-group">
-            <label for="todo-1" class="todo-label">
-              New name for 'Create a Svelte starter app'
-            </label>
-            <input type="text" id="todo-1" autocomplete="off" class="todo-text" />
-          </div>
-          <div class="btn-group">
-            <button class="btn todo-cancel" type="button">
-              Cancel
-              <span class="visually-hidden">renaming Create a Svelte starter app</span>
-            </button>
-            <button class="btn btn__primary todo-edit" type="submit">
-              Save
-              <span class="visually-hidden">new name for Create a Svelte starter app</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </li>
-
-    <!-- todo-2 -->
-    <li class="todo">
-      <div class="stack-small">
-        <div class="c-cb">
-          <input type="checkbox" id="todo-2" checked/>
-          <label for="todo-2" class="todo-label">
-            Create your first component
-          </label>
-        </div>
-        <div class="btn-group">
-          <button type="button" class="btn">
-            Edit
-            <span class="visually-hidden">Create your first component</span>
-          </button>
-          <button type="button" class="btn btn__danger">
-            Delete
-            <span class="visually-hidden">Create your first component</span>
-          </button>
-        </div>
-      </div>
-    </li>
+    // @ts-ignore
+    const markTodoComplete = async (item) => {
+    }
     
-    <!-- todo-3 -->
-    <li class="todo">
-      <div class="stack-small">
-        <div class="c-cb">
-          <input type="checkbox" id="todo-3" />
-          <label for="todo-3" class="todo-label">
-            Complete the rest of the tutorial
-          </label>
-        </div>
-        <div class="btn-group">
-          <button type="button" class="btn">
-            Edit
-            <span class="visually-hidden">Complete the rest of the tutorial</span>
-          </button>
-          <button type="button" class="btn btn__danger">
-            Delete
-            <span class="visually-hidden">Complete the rest of the tutorial</span>
-          </button>
-        </div>
-      </div>
-    </li>
-  </ul>
+    const deleteTodo = async (item) => {
+    }
+    
+    const altAddTodo = (event) => {
+    }
+</script>
 
-  <hr />
+<div class="todo-wrapper">
 
-  <!-- MoreActions -->
-  <div class="btn-group">
-    <button type="button" class="btn btn__primary">Check all</button>
-    <button type="button" class="btn btn__primary">Remove completed</button>
-  </div>
+	<h2>Add Todo</h2>
 
+	<label class="label">
+		<input type="text" placeholder="Add Task" bind:value={task} class="input"/>
+	</label>
+	<label class="label">
+		<input type="text" placeholder="Start Time" bind:value={startTime} class="input"/>
+	</label>
+	<label class="label">
+		<input type="text" placeholder="End Time" bind:value={endTime} class="input"/>
+	</label>
+	<button on:click={addNewTodo} class="">
+	Add Todo
+	</button>
+
+	<ol>
+		{#each todos as item}
+			<li class:complete={item.isComplete}>
+				{item.task}
+				<span>
+					<button on:click={() => markTodoComplete(item)} class="">*</button>
+					<button on:click={() => deleteTodo(item)}>x</button>
+				</span>
+			</li> 
+		{:else}
+			<p>No todos found</p>
+		{/each}
+	</ol>
 </div>
+
+<style>
+	.todo-wrapper{
+		display: flex;
+		background: #fff;
+		margin: 2rem 0 4rem 0;
+		padding: 1rem;
+		position: relative;
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2.5rem 5rem 0 rgba(0, 0, 0, 0.1);flex-direction: column;
+	}
+	
+	.label {
+		line-height: 1.01567;
+		font-weight: 300;
+		padding: 0.8rem;
+		margin-bottom: 1rem;
+		text-align: center;
+		padding: 2rem;
+		border: 2px solid #000;
+	}
+	
+</style>
